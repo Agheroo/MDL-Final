@@ -4,9 +4,6 @@ const app = express();
 const port = 3001;
 const usersfile = __dirname+"/users.json";
 
-const rawdata = fs.readFileSync(usersfile);
-
-
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -17,12 +14,14 @@ app.listen(port, () => {
 });
 
 app.get("/", (req,res) => {
+    const rawdata = fs.readFileSync(usersfile);
+    var splitsize = 20;
     var users = JSON.parse(rawdata);
-    var twenty_users = users.slice(0,20);
-
+    
     console.log(`Getting users at ${req.ip}`);
     res.render("pages/index", {
-        disp_users : twenty_users
+        all_users : users,
+        splitsize : splitsize,
     });
 });
 app.get("/edit", (req,res) => {

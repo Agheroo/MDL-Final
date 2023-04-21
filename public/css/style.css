@@ -48,14 +48,28 @@ footer{
     padding:5px;
 }
 
-#edit:hover, #delete:hover{
-    
-    cursor: pointer;
 
-    animation:hover 0.1s ease-out forwards;
+#edit:hover{
+    cursor: pointer;
+    animation:hover-edit 0.1s ease-out forwards;
+}
+#delete:hover{
+    cursor: pointer;
+    animation:hover-delete 0.1s ease-out forwards;
+}
+#wrapper-button{
+    width:80%;
+    margin:1em;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
 }
 
-@keyframes hover{
+@keyframes hover-edit{
     from{background-color: #FFFFFF;}
     to{background-color: #e7cea8;}
+}
+@keyframes hover-delete{
+    from{background-color: #FFFFFF;}
+    to{background-color: #e47d7d;}
 }
