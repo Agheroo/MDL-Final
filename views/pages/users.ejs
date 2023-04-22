@@ -1,0 +1,71 @@
+<html lang = "fr">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <nav>
+        <div id = "nav-left">
+            <a href = "/"><img src = "images/home.png" height = "70" alt = "Home"></img></a>
+        </div>
+        <div id = "nav-mid">
+            <a href = "/users">Liste</a>
+        </div>
+    </nav>
+
+
+
+    <div id = "wrapper">
+        <table id = "tableau">
+            <% let page = 0 ;%>
+            <% var disp_users = all_users.slice(splitsize*page,splitsize*page+20); %>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>EMAIL</th>
+                    <th>PRENOM</th>
+                    <th>NOM</th>
+                    <th>ENTREPRISE</th>
+                    <th>PAYS</th>
+                    <th>DATE DE CREATION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let row = "even"; %>
+                <% for(let i=0;i<20;i++){ %>
+                    <% if(i%2){%>
+                        <% row = "even"; %>
+                    <% } else{%>
+                        <% row = "odd"; }%>
+                
+                    <% if(page*splitsize+i<all_users.length) {%>
+                        <tr class = <%= row %>>
+                            <td><%= disp_users[i].id %></td>
+                            <td><%= disp_users[i].email %></td>
+                            <td><%= disp_users[i].first %></td>
+                            <td><%= disp_users[i].last %></td>
+                            <td><%= disp_users[i].company %></td>
+                            <td><%= disp_users[i].country %></td>
+                            <td><%= disp_users[i].created_at %></td>
+                            <td id = "edit-table"><img src = "images/edit.png" id = "edit" width = 20 alt = "Modify user"></td>
+                            <td id = "delete-table"><img src = "images/delete.png" id = "delete" width = 20 alt = "Delete user"></td>
+                        </tr>
+                    <% } %>
+                <% } %>
+            </tbody>
+        </table>
+
+        <div id = wrapper-button> 
+            <button id = "previous" onclick = "changePage('prev')" >page précedente</button>
+            <div id ="page-nb"><%= page %></div>
+            <button id = "next" onclick = "changePage('next')">page suivante</button>
+        </div>
+
+        <footer>
+            <%-include("../partials/footer"); %>
+        </footer>
+
+        <script src = "js/script.js"></script>
+    </div>
+</body>
+</html>

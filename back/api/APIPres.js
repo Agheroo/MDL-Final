@@ -20,6 +20,11 @@ const apiServ = {
             console.log(`App listening to port ${port}`);
         });
 
+        app.get("/", (req,res) => {
+            console.log(`Getting users at ${req.ip}`);
+            res.render("pages/index");
+        });
+
         app.get(REQUEST_URL, (req,res) => {
             const rawdata = fs.readFileSync(USERS_FILE_PATH);
             var splitsize = 20;
@@ -27,17 +32,17 @@ const apiServ = {
 
 
             console.log(`Getting users at ${req.ip}`);
-            res.render("pages/index", {
+            res.render("pages/users", {
                 all_users : users,
                 splitsize : splitsize,
             });
             
-        })
+        });
 
         app.post(REQUEST_URL, (req,res) => {
             let is_added = business.addUser(req.body);
             
-        })
+        });
 
         app.get("/data",(req,res) => {
             const users = business.getAllUsers();
