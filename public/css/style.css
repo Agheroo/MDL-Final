@@ -91,24 +91,30 @@ footer{
     font-size: 0.5em;
 }
 
-#edit, #delete, #edit-table, #delete-table{
+#edit, #delete, #edit-table, #delete-table, #confirm-table{
+    text-align: center;
     border : none;
     background-color: #FFFFFF;
 }
 
-#edit, #delete{
+#edit, #delete, #confirm{
+    background-color: #FFFFFF;
     border-radius:5px;
     padding:5px;
+    transition:background-color 0.1s;
 }
-
 
 #edit:hover{
     cursor: pointer;
-    animation:hover-edit 0.1s ease-out forwards;
+    background-color: #e7cea8;
 }
 #delete:hover{
     cursor: pointer;
-    animation:hover-delete 0.1s ease-out forwards;
+    background-color: #e47d7d;;
+}
+#confirm:hover{
+    cursor:pointer;
+    background:#c2e5a5;
 }
 #wrapper-button{
     width:80%;
@@ -127,13 +133,4 @@ footer{
 #prev:hover,#first:hover,#next:hover,#last:hover{
     background-color: #b9cbe7;
     border-radius: 1em;
-}
-
-@keyframes hover-edit{
-    from{background-color: #FFFFFF;}
-    to{background-color: #e7cea8;}
-}
-@keyframes hover-delete{
-    from{background-color: #FFFFFF;}
-    to{background-color: #e47d7d;}
 }

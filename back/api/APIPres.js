@@ -32,28 +32,36 @@ const apiServ = {
         app.get("/adduser", (req,res) => {
             console.log(`Getting users at ${req.ip}`);
             res.render("pages/adduser");
-        })
+        });
         app.get("/edit", (req,res) => {
             console.log(`Getting users at ${req.ip}`);
             res.render("pages/edit");
-        })
+        });
 
 
         //Requests & Data management
         app.get(REQUEST_URL, (req,res) => {     //Get users (read)
             console.log(`Getting users at ${req.ip}`);
             res.json(business.getAllUsers());
-        })
+        });
         app.post(REQUEST_URL, (req,res) => {    //Add user
             let is_added = business.addUser(req.body);
 
         });
         app.delete(REQUEST_URL, (req,res) => {  //Delete user
             let is_deleted = business.delUser(req.body);
-        })
+            if (is_deleted)
+                res.sendStatus(200);
+            else
+                res.sendStatus(400);
+        });
         app.put(REQUEST_URL, (req,res) => {     //Edit user
-
-        })
+            let is_edited = business.editUser(req.body);
+            if (is_edited)
+                res.sendStatus(200);
+            else
+                res.sendStatus(400);
+        });
     }
 };
 
