@@ -5,6 +5,30 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size:1.2em;
 }
+#welcome{
+    margin-top:10em;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background:#c0d4f1;
+    border-radius: 1em;
+    height:10em;
+    width:30em;
+}
+#welcome a{
+    padding:1em 1.5em 1em 1.5em;
+    background-color: #9db5da;
+    border-radius: 3em;
+}
+#welcome a:hover{
+    background-color: #89a4cc;
+}
+body{
+    flex-direction: column;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
 a{
     text-decoration: none;
 }
@@ -32,13 +56,14 @@ footer{
 }
 
 #wrapper{
+    width:100%;
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
 #tableau{
-    margin-top:1em ;
+    margin:1em 0 1em 0;
     width:80%;
     border-collapse: collapse;
 }
@@ -87,10 +112,21 @@ footer{
 }
 #wrapper-button{
     width:80%;
-    margin:1em;
+    margin-top:1em;
     display:flex;
     flex-direction:row;
-    justify-content:space-around;
+    align-items: center;
+    justify-content:space-evenly;
+}
+#prev, #first{
+    transform:rotate(180deg);
+}
+#prev,#first,#next,#last{
+    cursor:pointer;
+}
+#prev:hover,#first:hover,#next:hover,#last:hover{
+    background-color: #b9cbe7;
+    border-radius: 1em;
 }
 
 @keyframes hover-edit{
