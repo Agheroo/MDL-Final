@@ -46,7 +46,10 @@ const apiServ = {
         });
         app.post(REQUEST_URL, (req,res) => {    //Add user
             let is_added = business.addUser(req.body);
-
+            if (is_added)
+                res.sendStatus(200);
+            else
+                res.sendStatus(400);
         });
         app.delete(REQUEST_URL, (req,res) => {  //Delete user
             let is_deleted = business.delUser(req.body);

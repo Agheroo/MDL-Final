@@ -66,7 +66,7 @@ const delUser = (id) => {
   }
 
   fetch(USER_URL, {
-      method: "delete",
+      method: "DELETE",
       headers: {
           "Content-Type": "application/json"
       },
@@ -108,9 +108,9 @@ const confirmEdit = () =>{
 
   //Get new user in the database
   fetch(USER_URL, {
-    method: "put",
+    method: "PUT",
     headers: {
-        "Content-Type": "application/json"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
         id: curr_user.id,
