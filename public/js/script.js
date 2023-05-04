@@ -2,6 +2,7 @@ const USER_URL = "http://localhost:3001/data";
 const table = document.querySelector("#users");
 let page = 0;
 let userslen;
+let last_id =0;
 const user_checker = {
   first: /^[A-Za-z-]+$/,
   last: /^[A-Za-z-]+$/,
@@ -9,16 +10,16 @@ const user_checker = {
   company: /^[A-Za-z- ]+$/,
   country: /^[A-Za-z- ]+$/
 };
-var validMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 const specs = ["first","last","email","company","country"];
 
 const getUsers = function(){
   fetch(USER_URL)
   .then(res => res.json())
   .then(json =>{
-    refreshTable(json,page);
     userslen = json.length;
+    last_id = json[json.length-1].id;
+    console.log(last_id);
+    refreshTable(json,page);
   });
 }
 
@@ -61,9 +62,9 @@ const refreshTable = (users,startid) => {
 };
 
 const delUser = (id) => {
-  if (!confirm("Etes-vous sur de supprimer l'utilisateur ?")) {
-      return;
-  }
+  if (!confirm("Etes-vous sur de supprimer l'utilisateur ?"))
+    return;
+
 
   fetch(USER_URL, {
       method: "DELETE",
@@ -130,5 +131,30 @@ const cancelEdit = () =>{
   userspecs[7].id = "edit-table";
   userspecs[8].innerHTML = `<img id = "delete" onclick = "delUser(${curr_user.id})" src = "images/delete.png" height = "30">`
 }
+
+const confirmForm = ()=>{
+  let spec;
+  let user = {};
+  //Verifying if inputs are correct
+  for(let i=0; i<specs.length; i++){
+    spec = document.getElementById("user-"+specs[i]).value;
+    if(!spec.match(user_checker[spec])){
+      alert("Veuillez vérifier les informations en entrée");
+      return;
+    }
+    user[specs[i]] = spec;
+  }
+
+  //If all infos are correct, begin user adding
+  addUser(user);
+}
+
+const addUser = (user) => fetch(USER_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(user)
+}).then(getUsers());
 
 getUsers();
