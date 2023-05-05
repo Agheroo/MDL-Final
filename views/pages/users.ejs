@@ -9,11 +9,27 @@
             <a href = "/"><img src = "images/home.png" height = "70" alt = "Home"></img></a>
         </div>
         <div id = "nav-mid">
-            <a href = "/adduser">Ajouter</a>
+            <a href = "#"onclick = "displayForm()">Ajouter</a>
         </div>
     </nav>
 
-
+    <div id = "form">
+        <div class = "wrapper-cross"><img id = "cross" src = "images/cross.png" height = "50" onclick = "displayForm()"></div>
+        <div class = "wrapper">
+            <label for = "user-first">Prénom</label>
+            <input type = "text" placeholder = "Jean" id = "user-first">
+            <label for = "user-last">Nom</label>
+            <input type = "text" placeholder = "Dupont" id = "user-last">
+            <label for = "user-email">Email</label>
+            <input type = "user-email" placeholder = "dupont.jean@gmail.xyz" id = "user-email">
+            <label for = "user-country" >Pays</label>
+            <input type = "text" placeholder = "France" id = "user-country">
+            <label for = "user-company">Entreprise</label>
+            <input type = "text" placeholder="Appeule" id = "user-company">
+        </div>
+        <div id = "confirm-form" onclick = "confirmForm()">Confirmer</div>
+    </div>
+    
 
     <div id = "wrapper">
         <div id = wrapper-button> 

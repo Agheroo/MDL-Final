@@ -11,17 +11,16 @@ const user_checker = {
   country: /^[A-Za-z- ]+$/
 };
 const specs = ["first","last","email","company","country"];
-
 const getUsers = function(){
   fetch(USER_URL)
   .then(res => res.json())
   .then(json =>{
     userslen = json.length;
     last_id = json[json.length-1].id;
-    console.log(last_id);
     refreshTable(json,page);
   });
 }
+document.getElementById("form").style.display = "none";
 
 const changePage = (param) =>{
   if(param == 'next' && page < parseInt(userslen/20))
@@ -138,8 +137,9 @@ const confirmForm = ()=>{
   //Verifying if inputs are correct
   for(let i=0; i<specs.length; i++){
     spec = document.getElementById("user-"+specs[i]).value;
-    if(!spec.match(user_checker[spec])){
+    if(!spec.match(user_checker[specs[i]]) || spec == ""){
       alert("Veuillez vérifier les informations en entrée");
+      document.getElementById("user-"+specs[i]).value = "";
       return;
     }
     user[specs[i]] = spec;
@@ -147,6 +147,17 @@ const confirmForm = ()=>{
 
   //If all infos are correct, begin user adding
   addUser(user);
+  alert("Utilisateur ajouté !");
+  for(let i=0;i<specs.length;i++){
+    document.getElementById("user-"+specs[i]).value = "";
+  }
+  document.getElementById("form").style.display = "none";
+}
+function displayForm(){
+  if(document.getElementById("form").style.display == "none")
+    document.getElementById("form").style.display = "flex";
+  else
+    document.getElementById("form").style.display = "none";
 }
 
 const addUser = (user) => fetch(USER_URL, {
