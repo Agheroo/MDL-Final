@@ -174,8 +174,8 @@ label{
     font-size:0.8em;
 }
 input{
-    margin-bottom: 1em;;
-    font-size:.6em;
+    margin-bottom: auto;
+    font-size:1em;
     padding:0.1em;
     width:100%;
 }

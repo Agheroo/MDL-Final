@@ -3,6 +3,7 @@ const table = document.querySelector("#users");
 let page = 0;
 let userslen;
 let last_id =0;
+let can_edit = true;
 const user_checker = {
   first: /^[A-Za-z-]+$/,
   last: /^[A-Za-z-]+$/,
@@ -78,24 +79,29 @@ const delUser = (id) => {
 };
 
 const editUser = (id) => {
-  let row = document.getElementById("user"+id);
-  let userspecs = row.children;
-  curr_user = {id:id};
-
-  //Editing of user-id starting
-  for(let i=0; i<specs.length;i++){
-    curr_user[specs[i]] = userspecs[i+1].textContent;
-    userspecs[i+1].innerHTML = `<input id = "${specs[i]+id}" type = "text" value = "${curr_user[specs[i]]}">`;
+  if(can_edit){
+    let row = document.getElementById("user"+id);
+    let userspecs = row.children;
+    curr_user = {id:id};
+    
+    //Editing of user-id starting
+    for(let i=0; i<specs.length;i++){
+      curr_user[specs[i]] = userspecs[i+1].textContent;
+      userspecs[i+1].innerHTML = `<input id = "${specs[i]+id}" type = "text" value = "${curr_user[specs[i]]}">`;
+    }
+    userspecs[7].innerHTML = `<img id = "confirm" onclick = "confirmEdit()" src = "images/validate.png" height = "30">`
+    userspecs[7].id = "confirm-table";
+    userspecs[8].innerHTML = `<img id = "delete" onclick = "cancelEdit()" src = "images/cancel.png" height = "30">`
+    can_edit = false; 
   }
-  userspecs[7].innerHTML = `<img id = "confirm" onclick = "confirmEdit()" src = "images/validate.png" height = "30">`
-  userspecs[7].id = "confirm-table";
-  userspecs[8].innerHTML = `<img id = "delete" onclick = "cancelEdit()" src = "images/cancel.png" height = "30">`
+  else
+    alert("Vous êtes déjà en train de modifier un utilisateur !");
 }
 
 const confirmEdit = () =>{
   let new_user = {};
   let spec;
-
+  
   //Gathering new user infos
   for(let i=0; i<specs.length; i++){
     spec = document.getElementById(specs[i]+curr_user.id).value;
@@ -105,7 +111,7 @@ const confirmEdit = () =>{
     }
     new_user[specs[i]] = spec;
   }
-
+  can_edit = true;
   //Get new user in the database
   fetch(USER_URL, {
     method: "PUT",
@@ -129,6 +135,7 @@ const cancelEdit = () =>{
   userspecs[7].innerHTML = `<img id = "edit" onclick = "editUser(${curr_user.id})" src = "images/edit.png" height = "30">`
   userspecs[7].id = "edit-table";
   userspecs[8].innerHTML = `<img id = "delete" onclick = "delUser(${curr_user.id})" src = "images/delete.png" height = "30">`
+  can_edit = true;
 }
 
 const confirmForm = ()=>{
